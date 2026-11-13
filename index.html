@@ -66,6 +66,9 @@ nav .btn{min-height:42px;padding:.5em 1.3em}
 .shears{position:absolute;right:6%;top:18%;width:min(26vw,300px);opacity:.95;transform:rotate(-24deg);pointer-events:none}
 @media(max-width:760px){.shears{width:30vw;top:9%;right:6%}}
 
+.heroph{position:absolute;right:var(--gut);top:96px;bottom:150px;width:min(30vw,420px);background:url(img/barber.jpg) 50% 30%/cover;filter:grayscale(1) contrast(1.15);clip-path:polygon(0 0,calc(100% - 40px) 0,100% 40px,100% 100%,40px 100%,0 calc(100% - 40px));opacity:.55;z-index:0}
+.hero h1,.hero .row,.hero>p{position:relative;z-index:2}
+@media(max-width:760px){.heroph{display:none}}
 /* scissor divider */
 .cut{position:relative;height:90px;background:var(--bone);color:var(--ink)}
 .cut::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:2px dashed rgba(20,17,15,.45)}
@@ -92,8 +95,12 @@ nav .btn{min-height:42px;padding:.5em 1.3em}
 .looks h2 span{color:var(--hot)}
 .track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:20px;margin:0 calc(var(--gut) * -1);padding-left:var(--gut);padding-right:var(--gut);scrollbar-width:thin;scrollbar-color:var(--hot) transparent}
 .look{flex:0 0 clamp(250px,26vw,340px);scroll-snap-align:start;aspect-ratio:3/4.2;border:1px solid rgba(241,235,226,.18);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;transition:border-color .3s,transform .5s var(--ease)}
+.look .ph{position:absolute;inset:0;background-size:cover;background-position:center;filter:grayscale(1) contrast(1.1);transition:filter .6s,transform 1s var(--ease)}
+.look::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(20,17,15,.1) 20%,rgba(20,17,15,.92) 85%)}
+.look>*:not(.ph){z-index:2}
+@media(hover:hover){.look:hover .ph{filter:grayscale(0) contrast(1.05);transform:scale(1.06)}}
 .look .big{position:absolute;top:-8px;right:12px;font-family:var(--display);font-size:9rem;line-height:1;color:rgba(241,235,226,.06);transition:color .4s}
-.look svg{position:absolute;left:50%;top:38%;width:58%;transform:translate(-50%,-50%);stroke:var(--bone);fill:none;stroke-width:2.2;stroke-linecap:round;transition:stroke .4s,transform .6s var(--ease)}
+.look svg_unused{position:absolute;left:50%;top:38%;width:58%;transform:translate(-50%,-50%);stroke:var(--bone);fill:none;stroke-width:2.2;stroke-linecap:round;transition:stroke .4s,transform .6s var(--ease)}
 .look h3{font-size:2.3rem}
 .look p{font-size:.88rem;color:var(--mute)}
 @media(hover:hover){.look:hover{border-color:var(--hot);transform:translateY(-6px)}.look:hover svg{stroke:var(--hot);transform:translate(-50%,-50%) scale(1.08)}.look:hover .big{color:rgba(255,90,31,.22)}}
@@ -135,6 +142,7 @@ footer .r{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;bor
 
 <main id="top" style="overflow-x:clip">
 <section class="hero">
+  <div class="heroph" aria-hidden="true"></div>
   <svg class="shears" viewBox="0 0 120 120" aria-hidden="true" fill="none" stroke="#f1ebe2" stroke-width="3" stroke-linecap="round">
     <circle cx="30" cy="92" r="14" stroke="#ff5a1f"/><circle cx="62" cy="100" r="14" stroke="#ff5a1f"/>
     <path d="M38 80 L92 8"/><path d="M58 87 L104 20"/>
@@ -174,11 +182,11 @@ footer .r{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;bor
     <p class="label">Scroll sideways →</p>
   </div>
   <div class="track" tabindex="0" aria-label="Looks">
-    <article class="look"><span class="big">01</span><svg viewBox="0 0 100 100"><path d="M20 60c0-24 14-38 30-38s30 14 30 38"/><path d="M26 62h48"/><path d="M34 36l10 8M66 36l-10 8"/></svg><h3>Skin fade</h3><p>Short on the sides, clean from top to temple.</p></article>
-    <article class="look"><span class="big">02</span><svg viewBox="0 0 100 100"><path d="M18 62c2-26 16-40 32-40s30 14 32 40"/><path d="M24 40c10-12 42-12 52 0"/></svg><h3>Classic cut</h3><p>Neat, timeless, easy to carry every day.</p></article>
-    <article class="look"><span class="big">03</span><svg viewBox="0 0 100 100"><path d="M24 24c-4 22-4 46 4 60M76 24c4 22 4 46-4 60"/><path d="M28 24c12-8 32-8 44 0"/><path d="M36 60c8 8 20 8 28 0"/></svg><h3>Layers</h3><p>Movement and volume, shaped to your face.</p></article>
-    <article class="look"><span class="big">04</span><svg viewBox="0 0 100 100"><path d="M30 40c0 22 8 34 20 34s20-12 20-34"/><path d="M30 40c4-10 36-10 40 0"/><path d="M40 62c6 5 14 5 20 0"/></svg><h3>Beard sculpt</h3><p>Lines, length and shape, trimmed to hold.</p></article>
-    <article class="look"><span class="big">05</span><svg viewBox="0 0 100 100"><path d="M16 50c10-24 24-26 34-10s24 14 34-6"/><path d="M16 66c10-24 24-26 34-10s24 14 34-6"/></svg><h3>Colour</h3><p>Highlights, global colour or a subtle shift.</p></article>
+    <article class="look"><i class="ph" style="background-image:url(img/clipper.jpg)" role="img" aria-hidden="true"></i><span class="big">01</span><h3>Skin fade</h3><p>Short on the sides, clean from top to temple.</p></article>
+    <article class="look"><i class="ph" style="background-image:url(img/scissors.jpg)" role="img" aria-hidden="true"></i><span class="big">02</span><h3>Classic cut</h3><p>Neat, timeless, easy to carry every day.</p></article>
+    <article class="look"><i class="ph" style="background-image:url(img/blow.jpg)" role="img" aria-hidden="true"></i><span class="big">03</span><h3>Layers</h3><p>Movement and volume, shaped to your face.</p></article>
+    <article class="look"><i class="ph" style="background-image:url(img/beard.jpg)" role="img" aria-hidden="true"></i><span class="big">04</span><h3>Beard sculpt</h3><p>Lines, length and shape, trimmed to hold.</p></article>
+    <article class="look"><i class="ph" style="background-image:url(img/stylist.jpg)" role="img" aria-hidden="true"></i><span class="big">05</span><h3>Colour</h3><p>Highlights, global colour or a subtle shift.</p></article>
   </div>
 </section>
 
